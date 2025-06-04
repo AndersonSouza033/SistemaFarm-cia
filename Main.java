@@ -7,17 +7,38 @@ public class Main {
 
     // Iniciando o sistema!
     public static void main(String[] args) {
+        recuperarSenha();
         login();
+    }
+
+    // Método para recuperar senha!
+    public static void recuperarSenha(){
+        System.out.println("Digite seu CPF: ");
+        Long CPF = scanner.nextLong();
+        scanner.nextLine(); // Limpar Buffer!
+        
+        // Procura na lista direto pelo CPF!
+        Cliente c = BancoDeDados.getClientes().get(CPF);
+        // Verifica se achou o CPF na lista e pede a nova senha!
+        if (c != null){
+            System.out.println("Nova senha: ");
+            String novaSenha = scanner.nextLine();
+            // Salva a nova senha na lista!
+            c.setSenha(novaSenha);
+        }else{
+            System.err.println("CPF inválido ou não cadastrado!");
+        }
     }
 
     // Método de login!
     public static void login(){
         System.out.println("CPF: ");
         long CPF = scanner.nextLong();
-        
+        scanner.nextLine(); // Limpar Buffer!
+
         System.out.println("Senha: ");
         String senha = scanner.nextLine();
-
+        
         // Procura na lista direto pelo CPF!
         Cliente c = BancoDeDados.getClientes().get(CPF);
         // Verifica se achou o cliente na lista e verifica a senha se está correta!
@@ -77,7 +98,6 @@ public class Main {
         if (senha.equals(senha2)){
             // Cria um novo cliente com os atributos do método construtor da classe Cliente!
             Cliente cliente = new Cliente(nome, senha, telefone, dataNascimento, idade, CPF, CEP, numero, rua, bairro, cidade, UF);
-            
             // Método da classe BancoDeDados para adicionar o novo cliente a tabela ArrayList clientes!
             BancoDeDados.adicionarCliente(cliente);
         }else{
