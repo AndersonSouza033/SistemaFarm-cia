@@ -15,14 +15,16 @@ public class Main {
         System.out.println("CPF: ");
         long CPF = scanner.nextLong();
         
+        System.out.println("Senha: ");
+        String senha = scanner.nextLine();
 
-
+        // Procura na lista direto pelo CPF!
         Cliente c = BancoDeDados.getClientes().get(CPF);
-        if (c != null){
-            System.out.println("Achei o cpf!");
-            System.err.println(c.getCPF());
+        // Verifica se achou o cliente na lista e verifica a senha se está correta!
+        if (c != null && c.getSenha().equals(senha)){
+            System.out.println("Longin efetuado!");
         }else{
-            System.out.println("Não achei o cpf!");
+            System.out.println("CPF ou senha incorretos!");
         }
     }
 
